@@ -8,7 +8,7 @@ const About: NextPage = () => {
       <h1>About</h1>
       <style jsx>{`
         h1 {
-          color: blue;
+          text-align: center;
         }
       `}</style>
     </div>
