@@ -5,6 +5,8 @@ import Movie from "../components/Movie";
 import Seo from "../components/Seo";
 
 const API_KEY = process.env.NEXT_PUBLIC_MOVIE_API_KEY;
+const BASE_API_URL = "https://api.themoviedb.org/3/movie/popular?api_key=";
+const API_URL = BASE_API_URL + API_KEY;
 interface Movie {
   adult: string;
   backdrop_path: string;
@@ -55,9 +57,7 @@ const Home: NextPage = ({
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const { results } = await (
-    await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`)
-  ).json();
+  const { results } = await (await fetch(API_URL)).json();
 
   return {
     props: {
