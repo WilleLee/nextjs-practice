@@ -15,7 +15,7 @@
 }
 @media screen and (max-width: 774px) {
   .movies {
-    grid-template-columns: repeat(1, 380px);
+    grid-template-columns: repeat(2, 220px);
     column-gap: 20px;
   }
 }

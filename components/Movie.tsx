@@ -1,25 +1,37 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import styles from "../styles/Movie.module.scss";
 
 const BASE_URL_IMG = "https://image.tmdb.org/t/p/w500/";
 
 type Props = {
+  id: number;
   poster_path: string;
   title: string;
 };
 
-const Movie = ({ poster_path, title }: Props) => {
+const Movie = ({ id, poster_path, title }: Props) => {
+  const router = useRouter();
+  const goToInfo = () => {
+    router.push(
+      { pathname: `/movies/${id}`, query: { title } },
+      `/movies/${id}`
+    );
+  };
+
   return (
     <div className={[styles.container, "container"].join(" ")}>
-      <Link href="/">
+      <div onClick={() => goToInfo()}>
+        <img
+          className={styles.movie__poster}
+          src={`${BASE_URL_IMG + poster_path}`}
+        />
+      </div>
+      <Link href={`/movies/${id}`}>
         <a>
-          <img
-            className={styles.movie__poster}
-            src={`${BASE_URL_IMG + poster_path}`}
-          />
+          <h2>{title}</h2>
         </a>
       </Link>
-      <h2>{title}</h2>
       <style jsx>{`
         .container {
           display: flex;

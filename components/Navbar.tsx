@@ -1,17 +1,22 @@
+import styles from "../styles/Navbar.module.scss";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const Navbar = () => {
+  const router = useRouter();
   return (
     <nav>
       <ul>
         <li>
           <Link href="/">
-            <a>Home</a>
+            <a className={router.pathname === "/" ? styles.active : ""}>Home</a>
           </Link>
         </li>
         <li>
           <Link href="/about">
-            <a>About</a>
+            <a className={router.pathname === "/about" ? styles.active : ""}>
+              About
+            </a>
           </Link>
         </li>
       </ul>
