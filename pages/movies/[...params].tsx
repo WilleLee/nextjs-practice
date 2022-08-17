@@ -1,6 +1,8 @@
-import { NextPage } from "next";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import {
+  GetServerSideProps,
+  InferGetServerSidePropsType,
+  NextPage,
+} from "next";
 import Seo from "../../components/Seo";
 
 type Movie = {
@@ -36,23 +38,22 @@ type Movie = {
   vote_count: number;
 };
 
-const Info: NextPage = () => {
-  const router = useRouter();
-  console.log(router);
-  const [movie, setMovie] = useState<Movie>();
-  const getMovie = async () => {
-    const json = await (await fetch(`/api/movies/${router.query.id}`)).json();
-    setMovie(json);
-  };
-  useEffect(() => {
-    getMovie();
-  }, []);
+const Info: NextPage = ({
+  params,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  const [title, id] = params.params || [];
   return (
     <>
-      <Seo title="movie" />
-      <div>{!movie ? <h3>Loading...</h3> : <h3>{movie.title}</h3>}</div>
+      <Seo title={title} />
+      <div>
+        <h3>{title}</h3>
+      </div>
     </>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  return { props: { params } };
 };
 
 export default Info;

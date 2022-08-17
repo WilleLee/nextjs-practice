@@ -1,3 +1,4 @@
+import { GetServerSideProps } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import styles from "../styles/Movie.module.scss";
@@ -13,10 +14,7 @@ type Props = {
 const Movie = ({ id, poster_path, title }: Props) => {
   const router = useRouter();
   const goToInfo = () => {
-    router.push(
-      { pathname: `/movies/${id}`, query: { title } },
-      `/movies/${id}`
-    );
+    router.push(`/movies/${title}/${id}`);
   };
 
   return (
@@ -27,7 +25,7 @@ const Movie = ({ id, poster_path, title }: Props) => {
           src={`${BASE_URL_IMG + poster_path}`}
         />
       </div>
-      <Link href={`/movies/${id}`}>
+      <Link href={`/movies/${title}/${id}`}>
         <a>
           <h2>{title}</h2>
         </a>
