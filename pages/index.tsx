@@ -3,10 +3,11 @@ import { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
 import { useEffect, useState } from "react";
 import Movie from "../components/Movie";
 import Seo from "../components/Seo";
-
+/*
 const API_KEY = process.env.NEXT_PUBLIC_MOVIE_API_KEY;
 const BASE_API_URL = "https://api.themoviedb.org/3/movie/popular?api_key=";
 const API_URL = BASE_API_URL + API_KEY;
+*/
 interface Movie {
   adult: string;
   backdrop_path: string;
@@ -57,7 +58,9 @@ const Home: NextPage = ({
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const { results } = await (await fetch(API_URL)).json();
+  const { results } = await (
+    await fetch("http://localhost:3000/api/movies")
+  ).json();
 
   return {
     props: {
