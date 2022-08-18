@@ -1,4 +1,6 @@
+@import "./variables.scss";
+
 .active {
-  color: orangered;
+  color: $base-color-strong;
   font-weight: 600;
 }
