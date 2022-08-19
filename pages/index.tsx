@@ -1,5 +1,9 @@
 import styles from "../styles/index.module.scss";
-import { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
+import {
+  GetServerSideProps,
+  InferGetServerSidePropsType,
+  NextPage,
+} from "next";
 import { useEffect, useState } from "react";
 import Movie from "../components/Movie";
 import Seo from "../components/Seo";
@@ -27,13 +31,14 @@ interface Movie {
 
 const Home: NextPage = ({
   results,
-}: InferGetStaticPropsType<typeof getStaticProps>) => {
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const [movies, setMovies] = useState<Movie[]>([]);
-  /*
+
   useEffect(() => {
     setMovies(results);
   }, []);
-  */
+
+  /*
   const getMovies = async () => {
     const json = await (await fetch(API_URL)).json();
     console.log(json);
@@ -42,6 +47,7 @@ const Home: NextPage = ({
   useEffect(() => {
     getMovies();
   }, []);
+  */
   return (
     <div>
       <Seo title="Home" />
@@ -68,12 +74,14 @@ const Home: NextPage = ({
   );
 };
 
-export const getStaticProps: GetStaticProps = async () => {
-  const { results } = await (await fetch(API_URL)).json();
+export const getServerSideProps: GetServerSideProps = async () => {
+  const res = await fetch(API_URL);
+  const data = await res.json();
+  const results = data.results;
 
   return {
     props: {
-      results: results || null,
+      results,
     },
   };
 };
