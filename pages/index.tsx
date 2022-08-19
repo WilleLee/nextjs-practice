@@ -29,8 +29,18 @@ const Home: NextPage = ({
   results,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const [movies, setMovies] = useState<Movie[]>([]);
+  /*
   useEffect(() => {
     setMovies(results);
+  }, []);
+  */
+  const getMovies = async () => {
+    const json = await (await fetch(API_URL)).json();
+    console.log(json);
+    setMovies(json.results);
+  };
+  useEffect(() => {
+    getMovies();
   }, []);
   return (
     <div>
