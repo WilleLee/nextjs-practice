@@ -1,4 +1,3 @@
-import { GetServerSideProps } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import styles from "../styles/Movie.module.scss";
@@ -19,10 +18,11 @@ const Movie = ({ id, poster_path, title }: Props) => {
 
   return (
     <div className={[styles.container, "container"].join(" ")}>
-      <div onClick={() => goToInfo()}>
+      <div className={styles.movie__posterContainer} onClick={() => goToInfo()}>
         <img
           className={styles.movie__poster}
           src={`${BASE_URL_IMG + poster_path}`}
+          alt={`movie poster for ${title}`}
         />
       </div>
       <Link href={`/movies/${title}/${id}`}>
