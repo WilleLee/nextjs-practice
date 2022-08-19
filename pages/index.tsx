@@ -63,7 +63,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: {
-      results,
+      results: results || null,
     },
   };
 };
