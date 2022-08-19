@@ -19,3 +19,8 @@
     column-gap: 20px;
   }
 }
+@media screen and (max-width: 570px) {
+  .movies {
+    grid-template-columns: repeat(1, 260px);
+  }
+}
