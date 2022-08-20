@@ -4,6 +4,7 @@ import {
   NextPage,
 } from "next";
 import { useEffect, useState } from "react";
+import Detail from "../../components/Detail";
 import Seo from "../../components/Seo";
 
 type Movie = {
@@ -63,7 +64,7 @@ const Info: NextPage = ({
       <Seo title={title} />
       <div>
         <h3>{title}</h3>
-        {!movie ? <p>loading...</p> : <p>{movie.overview}</p>}
+        {!movie ? <p>loading...</p> : <Detail movie={movie} />}
       </div>
     </>
   );
