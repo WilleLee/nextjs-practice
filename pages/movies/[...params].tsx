@@ -3,6 +3,7 @@ import {
   InferGetServerSidePropsType,
   NextPage,
 } from "next";
+import { useEffect, useState } from "react";
 import Seo from "../../components/Seo";
 
 type Movie = {
@@ -42,11 +43,27 @@ const Info: NextPage = ({
   params,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const [title, id] = params.params || [];
+
+  const BASE_API_URL = "https://api.themoviedb.org/3/movie/";
+  const API_KEY = `?api_key=${process.env.NEXT_PUBLIC_MOVIE_API_KEY}`;
+  const API_URL = BASE_API_URL + id + API_KEY;
+
+  const [movie, setMovie] = useState<Movie>();
+  const getMovie = async () => {
+    const res = await fetch(API_URL);
+    const json = await res.json();
+    setMovie(json);
+  };
+  useEffect(() => {
+    getMovie();
+  }, []);
+
   return (
     <>
       <Seo title={title} />
       <div>
         <h3>{title}</h3>
+        {!movie ? <p>loading...</p> : <p>{movie.overview}</p>}
       </div>
     </>
   );
