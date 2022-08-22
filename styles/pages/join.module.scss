@@ -1,0 +1,36 @@
+@import "../variables.scss";
+
+.join__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.join__form {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  input {
+    all: unset;
+    background-color: #fff;
+    margin-bottom: 10px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 999px;
+    color: $bg-dark;
+  }
+  button {
+    all: unset;
+    text-align: center;
+    background-color: #161b22;
+    border: none;
+    border-radius: 999px;
+    height: 40px;
+    font-weight: 600;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}

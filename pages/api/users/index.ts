@@ -9,7 +9,6 @@ export default async function handler(
 ) {
   const { method } = req;
   dbConnect();
-  //console.log(method);
 
   if (method === "GET") {
     try {
@@ -22,8 +21,14 @@ export default async function handler(
 
   if (method === "POST") {
     try {
-      const user = await User.create(req.body);
-      return res.status(201).json(user);
+      const { firstname, lastname, useremail, password } = req.body;
+      if (await User.findOne({ useremail })) {
+        return res
+          .status(400)
+          .send("The email address has already been taken.");
+      }
+      await User.create({ firstname, lastname, useremail, password });
+      return res.status(201).send("user created");
     } catch (error) {
       return res.status(500).json(error);
     }
