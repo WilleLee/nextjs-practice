@@ -1,14 +1,7 @@
 import { NextPage } from "next";
 import Link from "next/link";
 import styles from "@/styles/pages/join.module.scss";
-import axios from "axios";
-
-interface UserState {
-  firstname: string;
-  lastname: string;
-  useremail: string;
-  password: string;
-}
+import Router from "next/router";
 
 const Join: NextPage = () => {
   const onSubmit = async (e: any) => {
@@ -19,6 +12,7 @@ const Join: NextPage = () => {
       useremail: e.target.useremail.value,
       password: e.target.password.value,
     };
+    console.log(body);
     const res = await fetch("/api/users", {
       method: "POST",
       headers: {
@@ -27,6 +21,9 @@ const Join: NextPage = () => {
       body: JSON.stringify(body),
     });
     console.log(res.status);
+    if (res.status === 201) {
+      Router.push("/login");
+    }
   };
 
   return (
