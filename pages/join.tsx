@@ -1,6 +1,5 @@
 import { NextPage } from "next";
 import Link from "next/link";
-import styles from "@/styles/pages/join.module.scss";
 import Router from "next/router";
 
 const Join: NextPage = () => {
@@ -28,9 +27,9 @@ const Join: NextPage = () => {
 
   return (
     <>
-      <div className={styles.join__container}>
+      <div className="account__container">
         <h2>Welcome to Wille Movies</h2>
-        <form onSubmit={onSubmit} className={styles.join__form}>
+        <form onSubmit={onSubmit} className="account__form">
           <input
             placeholder="first name"
             type="text"
@@ -53,26 +52,20 @@ const Join: NextPage = () => {
             type="password"
             name="password"
             minLength={8}
-            maxLength={10}
+            maxLength={12}
             required
           />
           <button type="submit">Join</button>
         </form>
-        <span>
-          <span className="join__login_message">Have an account already?</span>
+        <span className="account__otherwise_container">
+          <span className="account__otherwise_message">
+            Have an account already?
+          </span>
           <Link href="/login">
             <a>Go log in</a>
           </Link>
         </span>
       </div>
-      <style jsx>{`
-        a {
-          text-decoration: underline;
-        }
-        .join__login_message {
-          padding-right: 7px;
-        }
-      `}</style>
     </>
   );
 };
