@@ -25,66 +25,42 @@ export default async function handler(
 
     case "POST":
       try {
-        const { firstname, lastname, useremail, password } = req.body;
+        const {
+          firstname,
+          lastname,
+          useremail,
+          password,
+          passwordConfirmation,
+        } = req.body;
+        if (!firstname || !lastname || !useremail || !password) {
+          return res
+            .status(400)
+            .json({ success: false, message: "not fulfilled" });
+        }
+        if (password !== passwordConfirmation) {
+          return res
+            .status(400)
+            .json({ success: false, message: "password confirmation failed" });
+        }
         if (await User.findOne({ useremail })) {
-          res
+          return res
             .status(400)
             .json({ success: false, message: "email already taken" });
-          break;
         }
-        if (!firstname || !lastname || !useremail || !password) {
-          res.status(400).json({ success: false, message: "not fulfilled" });
-          break;
-        }
-        /*
-        console.log(password);
-        const hashedPassword = bcrypt.hash(
-          password,
-          saltRounds,
-          (err, hash) => {
-            if (err) {
-              console.log(err);
-            }
-            return hash;
-          }
-        );
-        console.log(hashedPassword);
-        */
         const user = await User.create({
           firstname,
           lastname,
           useremail,
           password,
         });
-        res.status(201).json({ success: true, data: user });
+        return res.status(201).json({ success: true, data: user });
       } catch (err) {
-        res.status(500).json({ success: false });
+        return res
+          .status(500)
+          .json({ success: false, messsage: "unexprected error occured" });
       }
-      break;
 
     default:
       break;
   }
-  /*
-
-  if (method === "POST") {
-    try {
-      const { firstname, lastname, useremail, password } = req.body;
-      if (await User.findOne({ useremail })) {
-        return res
-          .status(400)
-          .send("The email address has already been taken.");
-      }
-      await User.create({
-        firstname,
-        lastname,
-        useremail,
-        password,
-      });
-      return res.status(201).send("user created");
-    } catch (error) {
-      return res.status(500).json(error);
-    }
-  }
-  */
 }

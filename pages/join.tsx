@@ -11,6 +11,7 @@ const Join: NextPage = () => {
       lastname: e.target.lastname.value,
       useremail: e.target.useremail.value,
       password: e.target.password.value,
+      passwordConfirmation: e.target.passwordConfirmation.value,
     };
     const res = await fetch("/api/user", {
       method: "POST",
@@ -54,6 +55,14 @@ const Join: NextPage = () => {
             placeholder="password"
             type="password"
             name="password"
+            minLength={8}
+            maxLength={12}
+            required
+          />
+          <input
+            placeholder="password again"
+            type="password"
+            name="passwordConfirmation"
             minLength={8}
             maxLength={12}
             required
