@@ -1,8 +1,9 @@
 import { NextPage } from "next";
 import Link from "next/link";
-import Router from "next/router";
+import { useRouter } from "next/router";
 
 const Join: NextPage = () => {
+  const router = useRouter();
   const onSubmit = async (e: any) => {
     e.preventDefault();
     const body = {
@@ -11,8 +12,7 @@ const Join: NextPage = () => {
       useremail: e.target.useremail.value,
       password: e.target.password.value,
     };
-    console.log(body);
-    const res = await fetch("/api/users", {
+    const res = await fetch("/api/user", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -21,7 +21,10 @@ const Join: NextPage = () => {
     });
     console.log(res.status);
     if (res.status === 201) {
-      Router.push("/login");
+      router.push("/login");
+    }
+    if (res.status === 500) {
+      console.log(res);
     }
   };
 
