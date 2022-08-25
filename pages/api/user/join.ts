@@ -28,7 +28,9 @@ const joinRoute = async (req: NextApiRequest, res: NextApiResponse) => {
       useremail,
       password,
     });
-    return res.status(201).json({ success: true, data: user });
+    return res
+      .status(201)
+      .json({ success: true, message: "welcome to Wille Movies" });
   } catch (err) {
     return res
       .status(500)

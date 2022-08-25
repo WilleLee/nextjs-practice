@@ -1,12 +1,37 @@
 import { NextPage } from "next";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const Login: NextPage = () => {
+  const router = useRouter();
+
+  const onSubmit = async (event: any) => {
+    event.preventDefault();
+    const body = {
+      useremail: event.target.useremail.value,
+      password: event.target.password.value,
+    };
+    const response = await fetch("/api/user/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+    const data = await response.json();
+    console.log(data);
+    if (response.status === 200) {
+      router.push("/");
+    } else {
+      console.log(data?.message);
+    }
+  };
+
   return (
     <>
       <div className="account__container">
         <h2>Welcome back!</h2>
-        <form className="account__form">
+        <form onSubmit={onSubmit} className="account__form">
           <input
             placeholder="e-mail address"
             type="email"

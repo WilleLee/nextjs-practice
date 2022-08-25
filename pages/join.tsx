@@ -13,18 +13,19 @@ const Join: NextPage = () => {
       password: e.target.password.value,
       passwordConfirmation: e.target.passwordConfirmation.value,
     };
-    const res = await fetch("/api/user", {
+    const res = await fetch("/api/user/join", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(body),
     });
-    console.log(res);
+    const data = await res.json();
+    console.log(data);
     if (res.status === 201) {
       router.push("/login");
     } else {
-      router.push("/join");
+      console.log("failed");
     }
   };
 
