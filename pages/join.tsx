@@ -1,6 +1,8 @@
 import { NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const Join: NextPage = () => {
   const router = useRouter();
@@ -28,6 +30,19 @@ const Join: NextPage = () => {
       console.log("failed");
     }
   };
+  const [calledPush, setCalledPush] = useState<boolean>(false);
+  useEffect(() => {
+    if (calledPush === true) return;
+    (async () => {
+      const response = await fetch("/api/user");
+      const { isLoggedIn } = await response.json();
+      if (isLoggedIn) {
+        setCalledPush(true);
+        router.push("/");
+      }
+      return;
+    })();
+  }, []);
 
   return (
     <>
