@@ -20,12 +20,11 @@ const Join: NextPage = () => {
       },
       body: JSON.stringify(body),
     });
-    console.log(res.status);
+    console.log(res);
     if (res.status === 201) {
       router.push("/login");
-    }
-    if (res.status === 500) {
-      console.log(res);
+    } else {
+      router.push("/join");
     }
   };
 
