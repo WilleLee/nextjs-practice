@@ -1,10 +1,15 @@
-import { NextPage } from "next";
+import { sessionOptions } from "@/lib/session";
+import { withIronSessionSsr } from "iron-session/next";
+import { InferGetServerSidePropsType, NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useEffect } from "react";
 
-const Join: NextPage = () => {
+const Join = ({
+  user,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  console.log(user);
   const router = useRouter();
   const onSubmit = async (e: any) => {
     e.preventDefault();
@@ -96,5 +101,27 @@ const Join: NextPage = () => {
     </>
   );
 };
+
+export const getServerSideProps = withIronSessionSsr(async function ({
+  req,
+  res,
+}) {
+  const user = req.session.user;
+
+  if (user === undefined) {
+    res.statusCode === 302;
+    res.end();
+    return {
+      props: {
+        user: { isLoggedIn: false, useremail: "" },
+      },
+    };
+  }
+
+  return {
+    props: { user: req.session.user },
+  };
+},
+sessionOptions);
 
 export default Join;
