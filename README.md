@@ -18,9 +18,19 @@ Before creating parts of authentication, the application must be connected to a 
 
 Though it is possible for **me** to remember users with the help of the database, the browser that renders the application requires to receive sessions that describe whether any users are logged in so that the browser could decide which pages are allowed to be rendered. Vercel team helps this part as well providing [an example](https://github.com/vercel/next.js/tree/canary/examples/with-iron-session) that utilizes iron-session modules.
 
-#### hand-made hooks
+#### hashed password
 
-##### PublicOnly
+You must NOT save passwords of your users as what that actually is, otherwise passwords will be literally displayed on your database, which is not allowed to be called **secure**.
+
+There's one way to make sure to save passwords as encrypted texts, which is **hashing**. To hash passwords my application would receive, I fistly installed **bcryptjs** and its @types into the project.
+
+```
+npm i bcryptjs && npm i --save @types/bcryptjs
+```
+
+### Hand-made Hooks
+
+#### PublicOnly
 
 ```javascript
 import { useRouter } from "next/router";
