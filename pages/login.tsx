@@ -1,9 +1,17 @@
-import { NextPage } from "next";
+import { sessionOptions } from "@/lib/session";
+import publicOnly from "@/hooks/publicOnly";
+import { withIronSessionSsr } from "iron-session/next";
+import { InferGetServerSidePropsType } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import Seo from "@/components/Seo";
 
-const Login: NextPage = () => {
+const Login = ({
+  user,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const router = useRouter();
+
+  publicOnly(user);
 
   const onSubmit = async (event: any) => {
     event.preventDefault();
@@ -29,6 +37,7 @@ const Login: NextPage = () => {
 
   return (
     <>
+      <Seo title="login" />
       <div className="account__container">
         <h2>Welcome back!</h2>
         <form onSubmit={onSubmit} className="account__form">
@@ -57,5 +66,20 @@ const Login: NextPage = () => {
     </>
   );
 };
+
+export const getServerSideProps = withIronSessionSsr(async ({ req, res }) => {
+  const user = req.session.user;
+
+  if (user === undefined) {
+    res.statusCode === 302;
+    res.end();
+    return {
+      props: {
+        user: { isLoggedIn: false, useremail: "" },
+      },
+    };
+  }
+  return { props: { user: req.session.user } };
+}, sessionOptions);
 
 export default Login;

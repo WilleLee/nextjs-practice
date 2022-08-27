@@ -1,9 +1,31 @@
 import styles from "../styles/Navbar.module.scss";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 const Navbar = () => {
   const router = useRouter();
+  const [loggedIn, setLoggedIn] = useState<boolean>(false);
+  const isLoggedIn = async () => {
+    const response = await fetch("/api/user");
+    const data = await response.json();
+    setLoggedIn(data.isLoggedIn);
+  };
+  useEffect(() => {
+    isLoggedIn();
+  }, [router]);
+  const handleLogout = async (event: any) => {
+    event.preventDefault();
+    const response = await fetch("/api/user/logout");
+    const json = await response.json();
+    if (response.status === 200) {
+      console.log(json);
+      router.push("/login");
+    } else {
+      console.log(json);
+      router.push("/");
+    }
+  };
   return (
     <nav>
       <ul>
@@ -19,6 +41,17 @@ const Navbar = () => {
             </a>
           </Link>
         </li>
+        {loggedIn ? (
+          <li>
+            <a onClick={handleLogout}>Log-out</a>
+          </li>
+        ) : (
+          <li>
+            <Link href="/login">
+              <a>Sign-in</a>
+            </Link>
+          </li>
+        )}
       </ul>
       <style jsx>{`
         ul {

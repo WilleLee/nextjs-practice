@@ -1,15 +1,16 @@
 import { sessionOptions } from "@/lib/session";
+import publicOnly from "@/hooks/publicOnly";
 import { withIronSessionSsr } from "iron-session/next";
-import { InferGetServerSidePropsType, NextPage } from "next";
+import { InferGetServerSidePropsType } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
 import { useEffect } from "react";
+import Seo from "@/components/Seo";
 
 const Join = ({
   user,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  console.log(user);
+  //console.log(user);
   const router = useRouter();
   const onSubmit = async (e: any) => {
     e.preventDefault();
@@ -35,22 +36,11 @@ const Join = ({
       console.log("failed");
     }
   };
-  const [calledPush, setCalledPush] = useState<boolean>(false);
-  useEffect(() => {
-    if (calledPush === true) return;
-    (async () => {
-      const response = await fetch("/api/user");
-      const { isLoggedIn } = await response.json();
-      if (isLoggedIn) {
-        setCalledPush(true);
-        router.push("/");
-      }
-      return;
-    })();
-  }, []);
+  publicOnly();
 
   return (
     <>
+      <Seo title="Join Us" />
       <div className="account__container">
         <h2>Welcome to Wille Movies</h2>
         <form onSubmit={onSubmit} className="account__form">
