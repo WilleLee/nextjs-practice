@@ -10,8 +10,6 @@
 
 ### Building Authentication
 
-* login function is available only on the dev mode yet.
-
 #### Database
 
 Before creating parts of authentication, the application must be connected to a database so that the application could remember the information of users, which offers the keyframe of the whole function. In this case, mongoDB is applied to this project by using mongoose, and there's [a greate sample source code](https://github.com/vercel/next.js/blob/canary/examples/with-mongodb-mongoose/lib/dbConnect.js) for this section implementing mongoose to next.js applications.
