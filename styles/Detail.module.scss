@@ -13,7 +13,27 @@
     position: absolute;
     top: 0;
     left: 0;
-    color: $base-color;
+    bottom: 0;
     overflow: hidden;
+    color: $base-color;
+    animation: getStars 1s linear forwards;
+  }
+  .vote_average__colored_stars,
+  .vote_average__basic_stars {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    span {
+      font-size: 20px;
+    }
+  }
+}
+
+@keyframes getStars {
+  from {
+    width: 0;
+  }
+  to {
+    width: inherit;
   }
 }

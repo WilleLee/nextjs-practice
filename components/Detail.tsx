@@ -40,6 +40,7 @@ const Detail = ({ movie }: Props) => {
   console.log(movie);
   const rate = `${movie.vote_average * 10}%`;
 
+  /*
   const getColors = keyframes`
     from {
       width: 0;
@@ -51,6 +52,7 @@ const Detail = ({ movie }: Props) => {
   const ColoredStars = styled.div`
     animation: ${getColors} 0.5s linear forwards;
   `;
+*/
 
   return (
     <>
@@ -62,13 +64,15 @@ const Detail = ({ movie }: Props) => {
           <span>★</span>
           <span>★</span>
         </div>
-        <ColoredStars className={styles.vote_average__colored_stars}>
-          <span>★</span>
-          <span>★</span>
-          <span>★</span>
-          <span>★</span>
-          <span>★</span>
-        </ColoredStars>
+        <div style={{ width: rate }}>
+          <div className={styles.vote_average__colored_stars}>
+            <span>★</span>
+            <span>★</span>
+            <span>★</span>
+            <span>★</span>
+            <span>★</span>
+          </div>
+        </div>
       </div>
       <ul className={styles.genres}>
         {movie.genres.map((genre) => (
