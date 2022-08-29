@@ -4,7 +4,6 @@ import { withIronSessionSsr } from "iron-session/next";
 import { InferGetServerSidePropsType } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 import Seo from "@/components/Seo";
 
 const Join = ({
