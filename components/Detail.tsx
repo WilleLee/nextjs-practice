@@ -1,3 +1,6 @@
+import styles from "@/styles/Detail.module.scss";
+import styled, { keyframes } from "styled-components";
+
 type Movie = {
   adult: boolean;
   backdrop_path: string;
@@ -34,7 +37,47 @@ type Movie = {
 type Props = { movie: Movie };
 
 const Detail = ({ movie }: Props) => {
-  return <div>{movie.overview}</div>;
+  console.log(movie);
+  const rate = `${movie.vote_average * 10}%`;
+
+  const getColors = keyframes`
+    from {
+      width: 0;
+    }
+    to {
+      width: ${rate};
+    }
+  `;
+  const ColoredStars = styled.div`
+    animation: ${getColors} 0.5s linear forwards;
+  `;
+
+  return (
+    <>
+      <div className={styles.vote_average__container}>
+        <div className={styles.vote_average__basic_stars}>
+          <span>★</span>
+          <span>★</span>
+          <span>★</span>
+          <span>★</span>
+          <span>★</span>
+        </div>
+        <ColoredStars className={styles.vote_average__colored_stars}>
+          <span>★</span>
+          <span>★</span>
+          <span>★</span>
+          <span>★</span>
+          <span>★</span>
+        </ColoredStars>
+      </div>
+      <ul className={styles.genres}>
+        {movie.genres.map((genre) => (
+          <li key={genre.id}>{genre.name}</li>
+        ))}
+      </ul>
+      <p>{movie.overview}</p>
+    </>
+  );
 };
 
 export default Detail;

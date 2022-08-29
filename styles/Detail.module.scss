@@ -1,0 +1,19 @@
+@import "@/styles/variables.scss";
+
+.genres {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.vote_average__container {
+  position: relative;
+  .vote_average__colored_stars {
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: $base-color;
+    overflow: hidden;
+  }
+}

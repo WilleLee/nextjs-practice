@@ -62,10 +62,17 @@ const Info: NextPage = ({
   return (
     <>
       <Seo title={title} />
-      <div>
+      <div className="container">
         <h3>{title}</h3>
         {!movie ? <p>loading...</p> : <Detail movie={movie} />}
       </div>
+      <style jsx>{`
+        .container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+      `}</style>
     </>
   );
 };
