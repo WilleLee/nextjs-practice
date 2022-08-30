@@ -51,6 +51,84 @@ export default function publicOnly(user?: LoggedInUser) {
 
 [**publicOnly**](https://github.com/WilleLee/nextjs-practice/blob/main/hooks/publicOnly.ts) hook redirects users to "/" when they try to reach pages like "/join" and "/login" though they are already logged in, meaing the browser has the session of the user.
 
+### Styles
+
+#### star rates
+
+The movie API offers the recent vote rates for each movie so that I wanted to make it styled with stars with color.
+
+```javascript
+// ./components/Detail.tsx
+/*
+...
+*/
+const Detail = ({ movie }: Props) => {
+  const rate = `${movie.vote_average * 10}%`;
+
+  return (
+    <>
+      <div className={styles.vote_average__container}>
+        <div className={styles.vote_average__basic_stars}>
+          <span>★</span>
+          <span>★</span>
+          <span>★</span>
+          <span>★</span>
+          <span>★</span>
+        </div>
+        <div style={{ width: rate }}>
+          <div className={styles.vote_average__colored_stars}>
+            <span>★</span>
+            <span>★</span>
+            <span>★</span>
+            <span>★</span>
+            <span>★</span>
+          </div>
+        </div>
+      </div>
+      {/*
+      ...
+      */}
+    </>
+  );
+};
+
+export default Detail;
+```
+
+```scss
+//Detail.module.scss
+.vote_average__container {
+  position: relative;
+  .vote_average__colored_stars {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    overflow: hidden;
+    color: $base-color;
+    animation: getStars 1s linear forwards;
+  }
+  .vote_average__colored_stars,
+  .vote_average__basic_stars {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    span {
+      font-size: 20px;
+    }
+  }
+}
+
+@keyframes getStars {
+  from {
+    width: 0;
+  }
+  to {
+    width: inherit;
+  }
+}
+```
+
 ### Errors
 
 #### Error: querySrv ENODATA
