@@ -129,6 +129,8 @@ export default Detail;
 }
 ```
 
+Like above, I created two sets of stars. Here the latter one is to be colored and must cover the former one. But that _.vote_average__colored_stars_ should only be shown with the length of the rates the movie received so that I first defiend a constant variable _rate_ and sent this to the colored stars as a default width. Since its _overflow_ is _hidden_, the container would be shown only with the desired width. 
+
 ### Errors
 
 #### Error: querySrv ENODATA
